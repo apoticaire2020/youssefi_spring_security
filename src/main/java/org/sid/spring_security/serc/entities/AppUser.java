@@ -1,27 +1,23 @@
 package org.sid.spring_security.serc.entities;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-@Getter @Setter @NoArgsConstructor
-@AllArgsConstructor
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+
 public class AppUser {
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id ;
-	private String username;
+	private String userName;
 	private String password;
-	@ManyToMany
-	private Collection<AppRole> appRoles;
+	@ManyToMany(fetch = FetchType.EAGER)
+	private Collection<AppRole> appRoles = new ArrayList<>();
 }
