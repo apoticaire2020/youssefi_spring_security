@@ -10,4 +10,5 @@ public class YoussefiSpringSecurityApplication {
 		SpringApplication.run(YoussefiSpringSecurityApplication.class, args);
 	}
 
+	
 }
