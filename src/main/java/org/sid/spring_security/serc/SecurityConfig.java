@@ -2,9 +2,12 @@ package org.sid.spring_security.serc;
 
 import org.sid.spring_security.serc.entities.AppRole;
 import org.sid.spring_security.serc.entities.AppUser;
+import org.sid.spring_security.serc.filters.JwAuthenticationFilter;
 import org.sid.spring_security.serc.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -35,6 +38,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
       //  http.formLogin();
         http.authorizeRequests().antMatchers("/h2console/**").permitAll();
         http.authorizeRequests().anyRequest().authenticated();
+        http.addFilter(new JwAuthenticationFilter(authenticationManagerBean()));
+    }
+
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
     }
 
     @Override
